@@ -15,7 +15,7 @@ def add_book(filename):
             books = file.readlines()
     except FileNotFoundError:
         with open(filename, "a", encoding="utf-8") as file:
-            file.write(f"{isbn},{name},{writer},{year}\n")
+            file.write(f"{isbn}/{name}/{writer}/{year}\n")
 
     os.system("cls")
     print("\n**** Review book information ****")
@@ -36,7 +36,7 @@ def add_book(filename):
         else:
             print("Invalid input. Please enter y/n.")
     
-    books.append(f"{isbn},{name},{writer},{year}\n")
+    books.append(f"{isbn}/{name}/{writer}/{year}\n")
     books.sort(key=sort_by_year)
     
     with open(filename, "w", encoding="utf-8") as file:
@@ -46,7 +46,7 @@ def add_book(filename):
     print("\nBook added successfully!\n")
 
 def sort_by_year(line):
-    return int(line.strip().split(",")[3])
+    return int(line.strip().split("/")[3])
 
 
 ##### Validation functions for user inputs #####   
@@ -100,7 +100,7 @@ def print_books(filename):
 
         print("\n--- Library collection ---")
         for line in lines:
-            isbn, name, writer, year = line.strip().split(",")
+            isbn, name, writer, year = line.strip().split("/")
             print(f"ISBN: {isbn} | Name: {name} | Writer: {writer} | Year: {year}")
         print()
     except FileNotFoundError:
